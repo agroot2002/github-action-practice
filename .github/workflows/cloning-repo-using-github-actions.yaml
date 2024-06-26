@@ -1,0 +1,13 @@
+name : 'github actions intro '
+on : [push]
+jobs :
+    github-action-intro :
+        runs-on : ubuntu-latest
+        steps:
+            - name : 'list files before clone'
+              run: ls -a
+            - name : "clonning repo using github actions"
+              uses : actions/checkout@v3
+            - name : 'list files after clone'
+              run: ls -a
+              
