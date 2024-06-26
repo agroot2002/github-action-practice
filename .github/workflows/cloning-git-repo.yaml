@@ -27,7 +27,7 @@ jobs:
         steps:
             -  name: 'Messages'
                run : |
-                "echo ::error::This is a Error Message"
-                "echo ::warning::This is a Warning Message"
-                "echo ::debug::This is a Debug Message"
-                "echo ::notice::This is a Notice Message"
+                echo "::error::This is a Error Message"
+                echo "::warning::This is a Warning Message"
+                echo "::debug::This is a Debug Message"
+                echo "::notice::This is a Notice Message"
