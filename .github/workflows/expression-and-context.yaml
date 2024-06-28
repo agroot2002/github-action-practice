@@ -1,5 +1,6 @@
 name: 'Expression and Context Intro'
 on : [push , issues , workflow_dispatch]
+run-name: "Expression and Context by @${{github.actor}} , event ${{github.event_name}}"
 jobs : 
     Expression-and-Context :
         runs-on : ubuntu-latest
