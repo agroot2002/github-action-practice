@@ -4,7 +4,7 @@ jobs :
     # this job will only run if the issue is assigned a label of 'bug'
     Skip-job :
         runs-on : ubuntu-latest
-        if : contains(github.event.label.*.name , 'bug')
+        if : contains(github.event.label.name , 'bug')
         steps :
             - name : 'log the labels array'
               run : echo 'Labels \:''${{ join(github.event.label.*.name,'. ')}}'
@@ -13,7 +13,7 @@ jobs :
     Skip-step :
         runs-on : ubuntu-latest
         steps :
-            
+
             - name : 'runs for all issues event'
               run : echo 'Event type \:' '${{github.event_name}}'
 
