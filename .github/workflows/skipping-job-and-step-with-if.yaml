@@ -7,7 +7,7 @@ jobs :
         if : contains(github.event.label.name , 'bug')
         steps :
             - name : 'log the labels array'
-              run : echo 'Labels \:''${{ join(github.event.label.*.name,'. ')}}'
+              run : echo 'Label :' '${{ github.event.label.name }}'
 
     # only runs the second step when the issue is closed 
     Skip-step :
@@ -15,8 +15,8 @@ jobs :
         steps :
 
             - name : 'runs for all issues event'
-              run : echo 'Event type \:' '${{github.event_name}}'
+              run : echo 'Event type :' '${{github.event_name}}'
 
             - name : 'runs only if issues is closed'
               if : github.event.issue.state == 'closed'
-              run : echo 'Issue state \:' '${{github.event.issue.state}}'
+              run : echo 'Issue state :' '${{github.event.issue.state}}'
