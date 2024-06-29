@@ -1,4 +1,4 @@
-name: Environment Variables
+name: Dynamic Environment Variables
 on: [push]
 
 env:
@@ -14,7 +14,7 @@ jobs:
               run: |
                 echo "NEW_ENV_VAR=$(date)" >> "$GITHUB_ENV"
                 echo "JOB_LEVEL_ENV=$RANDOM" >> "$GITHUB_ENV"
-                
+
             - name: Multiline ENV Var
               run: |
                 DELIMITER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
