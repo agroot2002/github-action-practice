@@ -28,3 +28,7 @@ jobs :
 
             - name : 'Matrix log'
               run : echo '${{ toJson(matrix) }}'
+
+            - name : 'Fail if experimental'
+              if : ${{ matrix.experimental }}
+              run : exit 1
