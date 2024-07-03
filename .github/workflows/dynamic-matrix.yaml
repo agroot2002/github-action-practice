@@ -39,7 +39,7 @@ jobs :
             - name: Node version before
               run : node -v
             - name : Log the Matrix
-              run : echo ${{matrix}}
+              run : echo ${{toJson(matrix)}}
             - name: Changing node version
               uses : actions/setup-node@v3
               with :
