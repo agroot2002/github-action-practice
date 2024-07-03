@@ -22,7 +22,7 @@ jobs :
               uses : actions/github-script@v6
               id : matrix-array
               with :
-                script : "return { 'os' : context.github.payload.inputs['os'].split('.') , 'node-v' : context.github.payload.inputs['node-v'].split('.') }"
+                script : "return { 'os' : context.payload.inputs['os'].split('.') , 'node-v' : context.payload.inputs['node-v'].split('.') }"
                 result-encoding : json
             - name : Log the Matrix Array
               run : echo ${{ steps.matrix-array.outputs.result }}
