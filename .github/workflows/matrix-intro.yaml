@@ -16,8 +16,8 @@ jobs :
               with :
                   node-version : ${{matrix.node-v}}
 
-            - name : 'Node version before '
+            - name : 'Node version after '
               run : node -v
-              
+
             - name : 'Matrix log'
-              run : echo ${{matrix}}
+              run : echo ${{toJson(matrix)}}
