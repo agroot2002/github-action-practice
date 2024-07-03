@@ -1,0 +1,23 @@
+name: 'Matrix Intro'
+on : [push]
+jobs : 
+    Running-Consecutive-Jobs :
+        strategy :
+            matrix :
+                os : [ubuntu-latest , windows-latest]
+                node-v : [16,17,18]
+        runs-on : ${{matrix.os}}
+        steps :
+            - name : 'Node version before '
+              run : node -v
+
+            - name : 'Changing Node version'
+              uses : actions/setup-node@v3
+              with :
+                  node-version : ${{matrix.node-v}}
+
+            - name : 'Node version before '
+              run : node -v
+              
+            - name : 'Matrix log'
+              run : echo ${{matrix}}
