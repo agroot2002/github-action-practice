@@ -1,7 +1,10 @@
+# Expected behaiviour : we have set continue-on-error as true this will continue even if a step in job fails , fail-fast is set to false to stop other jobs from cancel 
+
 name: 'Matrix Intro'
 on : [push]
 jobs : 
     Running-Consecutive-Jobs :
+        continue-on-error : true
         strategy :
             matrix :
                 os : [ubuntu-latest , windows-latest]
@@ -12,6 +15,7 @@ jobs :
                       experimental : true
                 exclude :
                     - os : ubuntu-latest
+            fail-fast : false
 
         runs-on : ${{matrix.os}}
         steps :
