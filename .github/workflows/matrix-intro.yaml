@@ -4,7 +4,8 @@ name: 'Matrix Intro'
 on : [push]
 jobs : 
     Running-Consecutive-Jobs :
-        continue-on-error : false
+        continue-on-error : true
+        
         strategy :
             matrix :
                 os : [ubuntu-latest , windows-latest]
@@ -36,3 +37,14 @@ jobs :
 
             - name : 'Matrix log'
               run : echo '${{ toJson(matrix) }}'
+
+# Observations :
+
+# Default Behaviour : as soon as any job fails , other pending jobs got cencelled and the workflow failed
+
+# on Setting continue-on-error to true & fail-fast to false  : as soon as the job failed other job didn't stop and completed , also the workflow succeeded .
+
+# on Setting continue-on-error to false & fail-fast to false  : as soon as the job failed other job didn't stop and completed , but the workflow failed .
+
+
+# Conclusion : the fail-fast worked as expected , it didn't cancel out other jobs even if any job failed . In case of continue-on-error , it will fail the workflow if set to false and the workflow will show success if this set to true ( in both the cases job will do their work because of fail-fast ) . 
