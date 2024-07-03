@@ -34,6 +34,7 @@ jobs :
                 os : ${{ fromJson(needs.Preparing-Matrix.outputs.matrix-array).os }}
                 node-v : ${{ fromJson(needs.Preparing-Matrix.outputs.matrix-array).node-v }}
         runs-on : ${{ matrix.os }}
+        timeout-minutes : 2
         steps :
             - name: Node version before
               run : node -v
