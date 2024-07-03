@@ -1,10 +1,10 @@
-# Expected behaiviour : we have set continue-on-error as true this will continue even if a step in job fails , fail-fast is set to false to stop other jobs from cancel 
+# Expected behaiviour : we have set continue-on-error as false this will stop the job once any step fails , fail-fast is set to false to stop other jobs from cancel 
 
 name: 'Matrix Intro'
 on : [push]
 jobs : 
     Running-Consecutive-Jobs :
-        continue-on-error : true
+        continue-on-error : false
         strategy :
             matrix :
                 os : [ubuntu-latest , windows-latest]
@@ -29,10 +29,10 @@ jobs :
 
             - name : 'Node version after '
               run : node -v
-
-            - name : 'Matrix log'
-              run : echo '${{ toJson(matrix) }}'
-
+              
             - name : 'Fail if experimental'
               if : ${{ matrix.experimental }}
               run : exit 1
+
+            - name : 'Matrix log'
+              run : echo '${{ toJson(matrix) }}'
