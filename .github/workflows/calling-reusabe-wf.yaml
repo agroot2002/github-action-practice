@@ -1,0 +1,15 @@
+name: 'Calling Reusable WorkFlow'
+on : 
+    workflow_dispatch :
+        inputs :
+            name : 
+                type : string
+                default : abcd
+                description : Enter your Name
+jobs : 
+    Calling-Reusable-WF :
+        uses : agroot2002/github-action-practice/.github/workflows/reusable-workflow.yaml@main
+        with :
+            name : ${{ inputs.name }}
+        secrets : 
+            access-token : ${{ secrets.BOOLEAN_SECRET }}
