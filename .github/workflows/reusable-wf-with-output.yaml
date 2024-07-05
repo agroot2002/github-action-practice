@@ -1,4 +1,4 @@
-name: 'Reusable Workflow Demo'
+name: 'Reusable Workflow Output Demo'
 on : 
     workflow_call :
         outputs :
@@ -14,4 +14,4 @@ jobs :
         steps :
             - name : 'produce date output'
               id : date-output
-              run : echo "date-(date)" >> $GITHUB_OUTPUT
+              run : echo "date=$(date)" >> $GITHUB_OUTPUT
