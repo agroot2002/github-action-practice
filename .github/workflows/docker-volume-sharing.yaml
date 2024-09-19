@@ -1,0 +1,20 @@
+name: Docker Volume Sharing
+on: [workflow_dispatch]
+
+jobs:
+  docker-job:
+    runs-on: ubuntu-latest
+    container:
+      image: node:20.3-alpine3.17
+      env:
+        API_URL: some-url.com
+      ports:
+        - 80
+    steps:
+      - name: Create a file
+        run: echo 'JAI BALAJI JAI SIYARAM' > text.txt
+      - name: Show file contents 
+        uses: docker://node:18.16-alpine3.17
+        with:
+          entrypoint: cat
+          args: text.txt

@@ -1,0 +1,30 @@
+name: 'Reusable Workflow Demo'
+on : 
+    workflow_call :
+        inputs :
+            name :
+                description : Enter your name
+                required : false
+                type : string
+                default : Your Name
+        secrets :
+            access-token : 
+                description : enter your github repo secret
+                required : true
+jobs : 
+    checkout :
+        runs-on : ubuntu-latest
+        steps :
+            - name : 'fetch git repo'
+              uses : actions/checkout@v3
+            - run : ls -a
+
+    log-the-context-and-parameters :
+        runs-on : ubuntu-latest
+        steps:
+            - name: Dispay Github Context
+              run: echo '${{ toJSON(github) }}'
+            - name: Display name input
+              run: echo ${{ inputs.name }}
+            - name: Display access-token secret
+              run: echo ${{ secrets.access-token }}

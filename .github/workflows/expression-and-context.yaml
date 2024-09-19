@@ -1,0 +1,22 @@
+name: 'Expression and Context Intro'
+on : [push , issues , workflow_dispatch]
+run-name: "Expression and Context by @${{github.actor}} , event ${{github.event_name}}"
+jobs : 
+    Expression-and-Context :
+        runs-on : ubuntu-latest
+        steps :
+            - name : 'Expression'
+              run : |
+                echo '${{ 123 }}'
+                echo '${{ 'This is a test String' }}'
+                echo '${{ true }}'
+                echo '${{ 'string' == 'String' }}'
+                echo '${{ 1 < 2 }}'
+                echo '${{ true || ( false && true ) }}'
+            - name : 'Context'
+              run : |
+                echo '${{ toJson(github) }}'
+                echo '${{ toJson(job) }}'
+                echo '${{ toJson(secrets) }}'
+                echo '${{ toJson(runner) }}'
+                echo '${{ toJson(steps) }}'

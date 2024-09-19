@@ -1,0 +1,12 @@
+name: 'Dependent Waroflow'
+on : 
+    workflow_run :
+        workflows : [first workflow]
+        types : [completed]
+jobs : 
+    Dependent-Workflow :
+        runs-on : ubuntu-latest
+        steps :
+            - name : 'print after first-workflow'
+              run : |
+                echo "I am running after first-workflow"

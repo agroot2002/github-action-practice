@@ -1,0 +1,20 @@
+name: 'Custom Simple Js Action'
+on : workflow_dispatch
+jobs : 
+    simple-action :
+        runs-on : ubuntu-linux
+        steps :
+            # Since our action is in our repo
+            - uses: actions/checkout@v3
+            # Using Custom Js Action
+            - name : 'Simple JS Acton'
+              id: greet
+              uses: ./.github/actions/hello
+              with: 
+                who_to_greet: anupam
+            # Getting output from our action
+            - name : 'Log the greeting time'
+              run : echo "${{steps.greet.outputs.time}}"
+            # Logging env var returned by our action
+            - name : 'Log Env Variable'
+              run: echo $HELLO_TIME

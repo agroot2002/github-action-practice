@@ -1,0 +1,33 @@
+name: "Cloning git repo and logging events"
+on : [push]
+jobs:
+    logging-dir-before-repo :
+        runs-on: ubuntu-latest
+        steps:
+            -  name : 'get the current working dir'
+               run : pwd
+            -  name : 'log the files in it '
+               run : ls -a
+    cloning-git-repo :
+        runs-on : ubuntu-latest
+        needs : [logging-dir-before-repo]
+        steps:
+            - name : 'clone git repo'
+              run : |
+                git init
+                git remote add origin https://github.com/agroot2002/github-action-practice.git
+                git fetch origin
+                git checkout main
+            - name : 'log the files'
+              run : |
+                pwd
+                ls -a 
+    logging-custom-messages :
+        runs-on : ubuntu-latest
+        steps:
+            -  name: 'Messages'
+               run : |
+                echo "::error::This is a Error Message"
+                echo "::warning::This is a Warning Message"
+                echo "::debug::This is a Debug Message"
+                echo "::notice::This is a Notice Message"

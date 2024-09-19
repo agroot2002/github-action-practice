@@ -1,0 +1,10 @@
+name: 'Repository Event'
+on : 
+    repository_dispatch :
+        types : [test]
+jobs : 
+    log-passed-data :
+        runs-on : ubuntu-latest
+        steps :
+            - name : 'log the env passed'
+              run : echo "ENV ${{github.event.client_payload.env}}"

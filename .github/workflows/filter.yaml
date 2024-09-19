@@ -1,0 +1,20 @@
+name: 'Exploring Filters in Events'
+on : 
+    push :
+      branches : 
+        - main # match the bramnch name
+        - "feature/*" # match feature/featA , feacture/featB , but not match , feature/A/B
+        - "feature/**" # match feature/featA , feacture/featB , feature/A/B
+        - "!feature/featC" # exclude feacture/featB 
+      paths :
+        - "**.js"
+        - "!app.js"
+      tags :
+        - "v1.*" # matches v1.1 , v1.1.1 ...
+        - "!v2.2.2" # exclude v2.2.2
+jobs : 
+    job-name :
+        runs-on : os
+        steps :
+            - name : 'step-name'
+              run : command

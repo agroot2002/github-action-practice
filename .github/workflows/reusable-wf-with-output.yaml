@@ -1,0 +1,17 @@
+name: 'Reusable Workflow Output Demo'
+on : 
+    workflow_call :
+        outputs :
+            date :
+                description : 'Reusable WF Date Output'
+                value : ${{ jobs.Returning-Date-Output.outputs.date }}
+
+jobs : 
+    Returning-Date-Output :
+        runs-on : ubuntu-latest
+        outputs :
+            date : ${{ steps.date-output.outputs.date }}
+        steps :
+            - name : 'produce date output'
+              id : date-output
+              run : echo "date=$(date)" >> $GITHUB_OUTPUT

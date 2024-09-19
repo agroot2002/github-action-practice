@@ -1,0 +1,48 @@
+name: 'Dynamic Matrix'
+on : 
+    workflow_dispatch :
+        inputs : 
+            os :
+                description : 'Enter the OS'
+                default : 'ubuntu-latest'
+                type : string
+            node-v :
+                description : 'Enter the Node version'
+                default : '19,20'
+                type : string
+
+jobs : 
+
+    Preparing-Matrix :
+        runs-on : ubuntu-latest
+        outputs :
+            matrix-array : ${{ steps.matrix-array.outputs.result }}
+        steps :
+            - name : converting string to array 
+              uses : actions/github-script@v6
+              id : matrix-array
+              with :
+                script : "return { 'os' : context.payload.inputs['os'].split(',') , 'node-v' : context.payload.inputs['node-v'].split(',') }"
+                result-encoding : json
+            - name : Log the Matrix Array
+              run : echo ${{ steps.matrix-array.outputs.result }}
+
+    Matrix-Jobs :
+        needs : Preparing-Matrix
+        strategy :
+            matrix :
+                os : ${{ fromJson(needs.Preparing-Matrix.outputs.matrix-array)['os'] }}
+                node-v : ${{ fromJson(needs.Preparing-Matrix.outputs.matrix-array)['node-v'] }}
+        runs-on : ${{ matrix.os }}
+        timeout-minutes : 2
+        steps :
+            - name: Node version before
+              run : node -v
+            - name : Log the Matrix
+              run : echo '${{toJson(matrix)}}'
+            - name: Changing node version
+              uses : actions/setup-node@v3
+              with :
+                node-version : ${{ matrix.node-v }}
+            - name: Node version after
+              run : node -v

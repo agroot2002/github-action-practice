@@ -1,0 +1,22 @@
+name: 'Skiping Job and Step with if' 
+on : [issues]
+jobs : 
+    # this job will only run if the issue is assigned a label of 'bug'
+    Skip-job :
+        runs-on : ubuntu-latest
+        if : contains(github.event.label.name , 'bug')
+        steps :
+            - name : 'log the labels array'
+              run : echo 'Label :' '${{ github.event.label.name }}'
+
+    # only runs the second step when the issue is closed 
+    Skip-step :
+        runs-on : ubuntu-latest
+        steps :
+
+            - name : 'runs for all issues event'
+              run : echo 'Event type :' '${{github.event_name}}'
+
+            - name : 'runs only if issues is closed'
+              if : github.event.issue.state == 'closed'
+              run : echo 'Issue state :' '${{github.event.issue.state}}'

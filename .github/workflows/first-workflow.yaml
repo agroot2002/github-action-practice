@@ -1,0 +1,12 @@
+name : 'first workflow'
+on : [push]
+jobs :
+    first-job :
+        runs-on : ubuntu-latest
+        steps:
+            - name : "helow world"
+              run : echo "Hello World"
+            - name: "check node and npm versions"
+              run : |
+                node -v
+                npm -v

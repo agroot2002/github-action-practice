@@ -1,0 +1,37 @@
+name: 'Matrix Intro'
+on : [push]
+jobs : 
+    Running-Consecutive-Jobs :
+        continue-on-error : true
+
+        strategy :
+            matrix :
+                os : [ubuntu-latest , windows-latest]
+                node-v : [16,17,18]
+                include :
+                    - os : macos-latest
+                      node-v : 19
+                      experimental : true
+                exclude :
+                    - os : ubuntu-latest
+            fail-fast : false
+
+        runs-on : ${{matrix.os}}
+        steps :
+            - name : 'Node version before '
+              run : node -v
+
+            - name : 'Changing Node version'
+              uses : actions/setup-node@v3
+              with :
+                  node-version : ${{matrix.node-v}}
+
+            - name : 'Node version after '
+              run : node -v
+              
+            - name : 'Fail if experimental'
+              if : ${{ matrix.experimental }}
+              run : exit 1
+
+            - name : 'Matrix log'
+              run : echo '${{ toJson(matrix) }}'

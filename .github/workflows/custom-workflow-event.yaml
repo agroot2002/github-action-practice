@@ -1,0 +1,15 @@
+# this workflow will only trigger when there is a push event or when a new issue is opened
+
+name: 'custom github workflow event type'
+on : 
+    push:
+    issues: 
+        types: [opened]
+jobs : 
+    github-custom-event-run :
+        runs-on : ubuntu-latest
+        steps :
+            - name : 'log Github commit id and branch'
+              run : |
+                echo $GITHUB_SHA
+                echo $GITHUB_REF

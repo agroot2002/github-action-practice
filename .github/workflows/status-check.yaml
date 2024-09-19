@@ -1,0 +1,41 @@
+name: 'Status Check Workflow'
+on : 
+    workflow_dispatch :
+        inputs :
+            action :
+                type : string
+                description : Enter the step 1 result
+                required : true
+                default : "success"
+
+jobs : 
+    Status-Check :
+        runs-on : ubuntu-latest
+        steps :
+            - name : 'Step 1'
+              id : 'step-1'
+              if : inputs.action == 'success'
+              run : echo 'Success'
+
+            - name : 'Step 1 Success'
+              if : success() && steps.step-1.conclusion == 'success'
+              run : echo 'Step 1 Success'
+
+            - name : 'Step 1 Failed'
+              if : failure() && steps.step-1.conclusion == 'failure'
+              run : echo 'Step 1 Failed'
+
+            - name : 'Step 1 Cancelled'
+              if : cancelled() && steps.step-1.conclusion == 'cancelled'
+              run : echo 'Step 1 Cancelled'
+
+            - name : 'Always Run'
+              if : always()
+              run : echo 'User Input :' '${{inputs.action}}'
+    
+    Status-check-2 :
+        runs-on : ubuntu-latest
+        needs : Status-Check
+        if : success()
+        steps :
+            - run : echo " Status Check Successfull ."
